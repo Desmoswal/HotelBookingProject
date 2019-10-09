@@ -18,11 +18,14 @@ namespace HotelBooking.Core
 
         public bool CreateBooking(Booking booking)
         {
-            int roomId = FindAvailableRoom(booking.StartDate, booking.EndDate);
-
-            if (roomId >= 0)
+            if(booking.RoomId.Equals(null))
             {
+                int roomId = FindAvailableRoom(booking.StartDate, booking.EndDate); //had to be changed as it made no sense before
                 booking.RoomId = roomId;
+            }
+
+            if (booking.RoomId >= 0)
+            {
                 booking.IsActive = true;
                 bookingRepository.Add(booking);
                 return true;
